@@ -57,6 +57,9 @@ def encrypt_signal(signal, key):
         
         # XOR the segment with the current key
         encrypted_segment = segment ^ mutable_key[:len(segment)]
+
+        if(i > 0):
+            encrypted_segment = encrypted_segment ^ key_int16[:len(segment)]
         
         # Store the encrypted segment in the output signal
         encrypted_signal[i:i + segment_size] = encrypted_segment
@@ -88,6 +91,9 @@ def decrypt_signal(encrypted_signal, key):
         
         # XOR the segment with the current key to decrypt it
         decrypted_segment = segment ^ mutable_key[:len(segment)]
+
+        if(i > 0):
+            decrypted_segment = decrypted_segment ^ key_int16[:len(segment)]
         
         # Store the decrypted segment in the output signal
         decrypted_signal[i:i + segment_size] = decrypted_segment
